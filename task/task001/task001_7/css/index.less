@@ -1,0 +1,223 @@
+// out: index.css, sourcemap: true, compress: true
+
+@nw-color: #e74f4d;
+@nw-gray: #787b83;
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style: none;
+}
+a {
+    color: #393a3a;
+    text-decoration: none;
+}
+body {
+    width: 100%;
+    font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, sans-serif;
+    color: #393a3a;
+}
+.maxwidth-1280 {
+    width: 1280px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header:before,
+.header:after,
+.feature:before,
+.feature:after,
+body:before,
+body:after {
+    content: "";
+    display: table;
+}
+
+.header:after,
+.feature:after,
+body:after {
+    clear: both;
+}
+
+
+
+
+.header {
+    width: 1160px;
+    padding: 11px 60px 0;
+    ul {
+        float: right;
+        li {
+            display: inline-block;
+            a {
+                display: inline-block;
+                padding: 0 20px 10px;
+                border-bottom: 5px solid #fff;
+                font-size: 14px;
+                line-height: 31px;
+                color: @nw-gray;
+                &:hover {
+                    .this-page;
+                }
+            }
+        }
+    }
+    .this-page {
+        color: @nw-color;
+        border-bottom: 5px solid @nw-color;
+    }
+    .login-btn {
+        color: @nw-color;
+    }
+}
+.head-logo {
+    float: left;
+    img {
+        width: 31px;
+        height: 31px;
+    }
+    span {
+        font-size: 21px;
+        line-height: 31px;
+    }
+}
+
+.banner {
+    width: 100%;
+    height: 690px;
+    min-width: 1280px;
+    background: url(../img/main_bg.png) no-repeat top center ;
+    background-size: cover;;
+}
+.banner-wrap {
+    width: 1165px;
+    padding: 230px 0 0 115px;
+    color: #fff;
+}
+.banner-title {
+    font-size: 60px;
+    font-weight: normal;
+    margin-bottom: 28px;
+}
+.banner-text {
+    font-size: 21px;
+    line-height: 180%;
+}
+.banner-btn {
+    width: 331px;
+    height: 64px;
+    margin-top: 65px;
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 30px;
+        line-height: 64px;
+        color: #fff;
+        background-color: @nw-color;
+        text-align: center;
+    }
+}
+.feature {
+    padding-top: 46px;
+    padding-bottom: 65px;
+}
+.f-single {
+    float: left;
+    width: 25%;
+    text-align: center;
+    img {
+        margin-bottom: 40px;
+    }
+    p {
+        font-size: 15px;
+        color: @nw-gray;
+        line-height: 160%;
+        border-right: 1px solid @nw-gray;
+    }
+    .none-border {
+        border-right: none;
+    }
+}
+
+.know {
+    padding: 90px 0 80px 0;
+    min-width: 1280px;
+    background-color: #ededec;
+    text-align: center;
+    img {
+        margin-bottom: 50px;
+    }
+    h2 {
+        font-size: 50px;
+        text-align: center;
+        color: @nw-gray;
+        font-weight: normal;
+    }
+}
+
+.map {
+    height: 341px;
+    min-width: 1280px;
+    padding-top: 50px;
+    background: url(../img/map.png) no-repeat top center;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    h3 {
+        margin-bottom: 8px;
+        font-size: 21px;
+        font-weight: normal;
+    }
+    hr {
+        width: 30px;
+        border: 1px solid #fff;
+        margin: 0 auto;
+    }
+    p {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+}
+.city-form {
+    padding: 0 125px;
+    margin-top: 50px;
+}
+.city-selector {
+    float: left;
+    width: 233px;
+    height: 33px;
+    margin-right: 30px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    cursor: pointer;
+}
+.city-selector-content {
+    padding: 8px 10px 0 8px;
+    span {
+        float: left;
+        font-size: 12px;
+        line-height:18px;
+        color: @nw-gray;
+    }
+    img {
+        float: right;
+    }
+}
+.city-btn {
+    float: left;
+    width: 235px;
+    height: 35px;
+    input {
+        width: 100%;
+        background-color: #be4e48;
+        color: #fff;
+        font-size: 14px;
+        line-height: 35px;
+        border: none;
+        cursor: pointer;
+    }
+}
