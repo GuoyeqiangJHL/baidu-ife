@@ -37,13 +37,15 @@ var cmdAirshipArr = [{}, {}, {}, {}];
 
 //发送信息
 function sendFn(orbit, command) {
-
     cmdAirshipArr[orbit].id = orbit;
 
     if (command == 0) {
         cmdAirshipArr[orbit].command = 'create';
         $('.create-wrap').show();
-        $('input[name=create-airship]').on('click', function () {
+        console.log(orbit, 'w');
+        $('input[name=create-airship]').on('click', function (orbit) {
+
+            console.log(orbit, 'n');
             var powers = $('.power input');
             var energys = $('.energy input');
             for (var i = 0; i < 3; i ++) {
@@ -64,10 +66,11 @@ function sendFn(orbit, command) {
                     cmdAirshipArr[orbit].energy = energyArr[0];
                 }
             }
+
             commander.send(cmdAirshipArr[orbit]);
             updateCmdWrap();
             $('.create-wrap').hide();
-        });
+        }(orbit));
     } else {
         if (command == 1) {
             cmdAirshipArr[orbit].command = 'flight';
