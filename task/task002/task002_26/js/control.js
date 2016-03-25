@@ -42,10 +42,9 @@ function sendFn(orbit, command) {
     if (command == 0) {
         cmdAirshipArr[orbit].command = 'create';
         $('.create-wrap').show();
-        console.log(orbit, 'w');
+
         $('input[name=create-airship]').on('click', function (orbit) {
 
-            console.log(orbit, 'n');
             var powers = $('.power input');
             var energys = $('.energy input');
             for (var i = 0; i < 3; i ++) {
