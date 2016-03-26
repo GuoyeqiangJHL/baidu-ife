@@ -28,11 +28,54 @@ var planet = {
         }
     },
 
-    createAitship: function (createCommand) {
-        airshipArr[createCommand.id] = new Airship(createCommand);
-        $('<p>' + createCommand.id + '号飞船创建成功</p>').prependTo($('.god-message'));
+    sendAdapter: function(uCommand){
+        /***********************************************
+         *     编译表                                *
+         *     二进制      0001    0010    0100    1000 *
+         *     id         0       1       2       3    *
+         *     command    create  flight  stop    boom *
+         *     dynamical  1       2       3            *
+         *     energy     2       3       4            *
+         *     useEnergy  5       7       9            *
+         ***********************************************/
+
+         if (uCommand.command == 'create') {
+             this.createAitship(uCommand);
+             return;
+         }
+
+         var result = compile(uCommand);
+         bus(result);
+    },
+
+    createAitship: function (uCommand) {
+        airshipArr[uCommand.id] = new Airship(uCommand);
+        $('<p>' + uCommand.id + '号飞船创建成功</p>').prependTo($('.god-message'));
     }
 }
+
+var compileArr = ['0001', '0010', '0100', '1000'];
+
+function compile(obj) {
+    var resulrArr = new Array(5);
+
+    resulrArr[0] = compileArr[obj.id];
+
+    if (obj.command == 'create') {
+        resulrArr[1] = compileArr[0];
+    } else if (obj.command == 'flight') {
+        resulrArr[1] = compileArr[1];
+    } else if (obj.command == 'stop') {
+        resulrArr[1] = compileArr[2];
+    } else if (obj.command == 'boom') {
+        resulrArr[1] = compileArr[3];
+    }
+
+
+    return resulrArr.join('');
+
+}
+
 
 //指挥官对象
 var commander = {
@@ -46,10 +89,8 @@ var commander = {
     send: function(uCommand) {
 
         if (uCommand.command === 'create') {
-            planet.createAitship(uCommand);
             this.message[uCommand.id] = true;
             this.isFlightArr[uCommand.id] = false;
-            return;
         }
 
         if (uCommand.command === 'boom') {
@@ -65,71 +106,52 @@ var commander = {
             this.isFlightArr[uCommand.id] = false;
         }
 
-        mediator(uCommand);
+        //在2_26中 我们通过mediator介质传播指挥官的指令，现在需要通过行星的编译系统
+        // mediator(uCommand);
 
+        planet.sendAdapter(uCommand);
     }
-
-    // //方法：创建飞船(参数：轨道号 0-3, 动力[速度，能耗], 能源)
-    // commandCreate: function (orbit, dynamical, energy) {
-    //     this.message[orbitNum] = true;
-    //     airshipArr.push(new Airship());
-    // }
-    // //方法：命令飞船飞行（参数：飞船号 0-3）
-    // commandFlight: function (airshipNum) {
-    //     airshipArr[airshipNum].flight();
-    // }
-    // //方法：命令飞船停止飞行（参数：飞船号 0-3）
-    // commandStop: function (airshipNum) {
-    //     airshipArr[airshipNum].stop();
-    // }
-    // //方法：命令飞船自爆（参数：飞船号 0-3）
-    // commandBoom: function (airshipNum) {
-    //     this.message[airshipNum] = false;
-    //     airshipArr[airshipNum].boom();
-    // }
 }
 
-//Mediator
-function mediator(uCommand) {
-
+//BUS
+function bus(str) {
     setTimeout(function () {
-        if (Math.random() > 0.3) {
-            //发送成功
+        if (Math.random() > 0.1) {
+            //传播成功
+            $('<p>传播成功,指令: '
+                + str.slice(0, 8) +
+            '</p>').prependTo($('.god-message'));
 
-            for (var i = 0, len = airshipArr.length; i < len; i++) {
+            for (var i = 0, len = airshipArr.length; i < len; i ++) {
                 if (typeof airshipArr[i] == 'object') {
-                    airshipArr[i].receive(uCommand);
+                    airshipArr[i].receive(str);
                 }
             }
 
-            $('<p>信息发送成功,指令: { '
-                + uCommand.id
-                + ', '
-                + uCommand.command +
-            ' }</p>').prependTo($('.god-message'));
-
         } else {
-            //发送失败，信息丢包
-            $('<p class="warning">信息丢包,指令: { '
-                + uCommand.id
-                + ', '
-                + uCommand.command +
-            ' }</p>').prependTo($('.god-message'));
+            //传播失败，再次传播中...
+            bus(str);
+            $('<p class="warning">传播失败,再次传播中,指令: '
+                + str.slice(0, 8) +
+            '</p>').prependTo($('.god-message'));
         }
-    }, 1000);
+    }, 300);
 }
 
-/****************************************************************
- *	指令形式
- * 	{
- * 		id: 0,(飞船号，在哪个轨道创建 可选 0-3)
- * 		command: 'create',(指令 可选 create, flight, stop, boom)
- * 		dynamical: 1 (速率 可选 1, 2, 3)
- * 		energy: 2 (动力恢复 2, 3, 4)
- * 		useEnergy: 5 (能耗 5，7， 9 与上面速率一一对应)
- *   }
- ****************************************************************/
 
+function change(arr) {
+    var obj = {};
+    var commandStrArr = ['create', 'flight', 'stop', 'boom'];
+    for (var i = 0; i < 4; i ++) {
+        if (arr[0] == compileArr[i]) {
+            obj.id = i;
+        }
+        if (arr[1] == compileArr[i]) {
+            obj.command = commandStrArr[i];
+        }
+    }
+    return obj;
+}
 
 
 //飞船类
@@ -155,8 +177,18 @@ function Airship(createCommand) {
     this.isBoom = false;
     this.frameNum = 0;
 
-    //接收信息
-    this.receive = function(uCommand) {
+    //接受信息 并转为可处理信息
+    this.receive = function (str) {
+        var tempArr = [];
+        var temp = 0;
+        for (var i = 0, len = str.length; i < len; i += 4) {
+            tempArr[temp ++] = str.slice(i, i + 4);
+        }
+        this.dispose(change(tempArr));
+    }
+
+    //处理信息
+    this.dispose = function(uCommand) {
         var isMe = false;
         for (var i = 0, len = airshipArr.length; i < len; i++) {
             //遍历判断自己是不是接受者
@@ -256,7 +288,6 @@ function animate() {
 
     for (var i = 0; i < airshipArr.length; i++) {
         if (airshipArr[i] instanceof Object) {
-            // console.log(airshipArr[i]);
             airshipArr[i].draw();
 
             airshipArr[i].restore();
