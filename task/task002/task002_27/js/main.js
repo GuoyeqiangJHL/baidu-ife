@@ -150,7 +150,6 @@ function change(arr) {
             obj.command = commandStrArr[i];
         }
     }
-    console.log(obj);
     return obj;
 }
 
@@ -185,7 +184,6 @@ function Airship(createCommand) {
         for (var i = 0, len = str.length; i < len; i += 4) {
             tempArr[temp ++] = str.slice(i, i + 4);
         }
-        console.log(tempArr);
         this.dispose(change(tempArr));
     }
 
