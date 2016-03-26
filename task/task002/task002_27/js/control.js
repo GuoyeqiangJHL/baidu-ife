@@ -9,12 +9,7 @@
  *   }
  ****************************************************************/
 
-/**
- * 3.26更新
- * 	1.修复一个BUG BUG详情见源码js/control.js 49行
- * 	2.修改一个逻辑问题 创建飞船应该由行星执行 且必定会创建成功
- * 	3.代码优化
- */
+
 
 //获取各种功能button
 var orbitArr = [$('.orbit0 input'), $('.orbit1 input'), $('.orbit2 input'), $('.orbit3 input')];
@@ -48,14 +43,14 @@ function sendFn(orbit, command) {
         cmdAirshipArr[orbit].command = 'create';
         $('.create-wrap').show();
 
+
         /**
          * 解决第几次点击就会执行多少次的问题
          * 问题原因：jQuery的事件绑定机制里用数组来保存事件，如果对同一元素进行重复绑定，不会覆盖之前已经绑定的事件，只是把新的绑定事件再push到保存事件的数组中，当事件触发时就会循环执行数组中的事件。
-         * 解决方案1：绑定前使用off()方法一次性解除所有的绑定
-         * 解决方案2：使用one()绑定 见2_27源码
+         * 解决方案1：绑定前使用off()方法一次性解除所有的绑定 见2_26源码
+         * 解决方案2：使用one()绑定
          */
-        $('input[name=create-airship]').off();
-        $('input[name=create-airship]').on('click', function () {
+        $('input[name=create-airship]').one('click', function () {
 
             var powers = $('.power input');
             var energys = $('.energy input');
@@ -77,7 +72,6 @@ function sendFn(orbit, command) {
                     cmdAirshipArr[orbit].energy = energyArr[0];
                 }
             }
-
             commander.send(cmdAirshipArr[orbit]);
             updateCmdWrap();
             $('.create-wrap').hide();
