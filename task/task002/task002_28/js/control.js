@@ -86,7 +86,23 @@ function sendFn(orbit, command) {
 
 
 }
-
+//更新指挥官视图
+// function updateCmdWrap() {
+//     var msgArr = commander.message;
+//     var flyArr = commander.isFlightArr;
+//
+//
+//     for (i = 0; i < 4; i ++) {
+//         $('.command-message div').eq(i).find('span').eq(1).html('未创建');
+//         $('.command-message div').eq(i).find('span').eq(2).html('未飞行');
+//         if (msgArr[i]) {
+//             $('.command-message div').eq(i).find('span').eq(1).html('已创建');
+//         }
+//         if (flyArr[i]) {
+//             $('.command-message div').eq(i).find('span').eq(2).html('飞行中');
+//         }
+//     }
+// }
 
 $('input[name=cancel]').on('click', function () {
     $('.create-wrap').hide();
