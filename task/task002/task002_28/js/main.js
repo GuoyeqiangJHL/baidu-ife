@@ -169,33 +169,9 @@ function ten2two(num) {
 
 //指挥官对象
 var commander = {
-
-    //指挥官记录的飞船信息（由于存在丢包概率，指挥官记录的情况可能与真实情况不符，请不要责备无辜的指挥官:)）
-    message: [false, false, false, false],
-
-    isFlightArr: [false, false, false, false],
-
+    //加入了飞船监控系统后，指挥官再也不用小本本啦
     //方法；发送信息(参数：发送的指令)
     send: function(uCommand) {
-
-        if (uCommand.command === 'create') {
-            this.message[uCommand.id] = true;
-            this.isFlightArr[uCommand.id] = false;
-        }
-
-        if (uCommand.command === 'boom') {
-            this.message[uCommand.id] = false;
-            this.isFlightArr[uCommand.id] = false;
-        }
-
-        if (uCommand.command === 'flight' && this.message[uCommand.id]) {
-            this.isFlightArr[uCommand.id] = true;
-        }
-
-        if (uCommand.command === 'stop') {
-            this.isFlightArr[uCommand.id] = false;
-        }
-
         //在2_26中 我们通过mediator介质传播指挥官的指令，现在需要通过行星的编译系统
         // mediator(uCommand);
 
