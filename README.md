@@ -11,3 +11,4 @@
 + [task002_26 已完成](http://xxthink.com/baidu-ife/task/task002/task002_26/index.html)
 + [task002_27 已完成](http://xxthink.com/baidu-ife/task/task002/task002_27/index.html)
 + [task002_28 已完成](http://xxthink.com/baidu-ife/task/task002/task002_28/index.html)
++ [task002_33 已完成](http://xxthink.com/baidu-ife/task/task002/task002_33/index.html)
