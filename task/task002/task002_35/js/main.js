@@ -1,16 +1,6 @@
-/**
- * 		2016-4-6 更新
- * 		代码整体重构
- * 		将go方法与四个tra方法合并为一个方法
- * 		将四个mov方法合并为一个方法
- * 		将三个tun方法合并为一个方法
- * 		用事件委托代替了子元素的事件监听
- */
-
 var block = document.querySelector('#block'),
-    inputs = document.querySelectorAll('#inputs input'),
-    btns = document.querySelector('#btns'),
-    traBtns = document.querySelector('#trabtns');
+    text = document.querySelector('.console textarea'),
+    rows = document.querySelector('.rows');
 
 (function init() {
     //小方块随机位置
@@ -93,7 +83,7 @@ var block = document.querySelector('#block'),
             this.go(direct);
         }
     }
-
+    //TUN方法
     block.tun = function (direct) {
         var tempArr = this.getAttr();
         var x = tempArr[0];
@@ -142,34 +132,49 @@ var block = document.querySelector('#block'),
     }
 })();
 
-traBtns.addEventListener('click', function (e) {
-    if (e.target && e.target.nodeName === 'BUTTON') {
-        block.cpu(e.target.innerHTML);
-    }
-});
-btns.addEventListener('click', function (e) {
-    if (e.target && e.target.nodeName === 'BUTTON') {
-        block.cpu(e.target.innerHTML);
-    }
-});
-
-//input btn
 (function () {
+    var btns = document.querySelectorAll('#inputs input'),
+        performBtn = btns[0],
+        emptyBtn = btns[1];
 
-    function dispose() {
-        block.cpu(inputs[0].value);
-        inputs[0].value = '';
-    }
+        emptyBtn.addEventListener('click', function () {
+            text.value = '';
+            emptyBtn.addEventListener('keyup', function (e) {
+                if (e.keyCode == '13') {
+                    //创建p
+                }
+            });
+        });
 
-    inputs[0].addEventListener('keydown', function (e) {
-        e = e || window.event;
-        if (e.keyCode == '13') {
-            dispose();
-        }
-    }, false);
+        performBtn.addEventListener('click', function () {
+            var arr = text.value.split('\n'),
+                timer = null,
+                len = arr.length,
+                resultArr = [];
 
-    inputs[1].addEventListener('click', function () {
-        dispose();
-    }, false);
+            for (var i = 0; i < len; i ++) {
+                if (/\s\d+$/.test(arr[i])) {
+                    var cmd = arr[i].replace(/\s\d+$/, '');
+                    var temp = parseInt(arr[i].match(/\s\d+$/)[0]);
+                    for (var j = 0; j < temp; j ++) {
+                        resultArr.push(cmd);
+                    }
+                } else {
+                    resultArr.push(arr[i]);
+                }
+            }
+            i = 0;
+            len = resultArr.length;
+            clearInterval(timer);
+            timer = setInterval(function () {
+
+                if (block.cpu(resultArr[i ++]) === 'no') {
+                    console.log('错误行数' + i);
+                }
+                if (i == len) {
+                    clearInterval(timer);
+                }
+            }, 500);
+        });
 
 })();
