@@ -65,9 +65,10 @@
 }
 .rows {
     float: left;
-    width: 25px;
+    min-width: 25px;
     height: 100px;
     background-color: #22C3AA;
+    overflow: hidden;
     text-align: center;
 }
 .rows p {

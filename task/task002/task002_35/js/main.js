@@ -1,3 +1,8 @@
+/**
+ *    4.11更新
+ *    添加行数统计
+ *    添加错误提醒
+ */
 var block = document.querySelector('#block'),
     text = document.querySelector('.console textarea'),
     rows = document.querySelector('.rows');
@@ -136,31 +141,46 @@ var block = document.querySelector('#block'),
     var btns = document.querySelectorAll('#inputs input'),
         performBtn = btns[0],
         emptyBtn = btns[1];
-
         emptyBtn.addEventListener('click', function () {
             text.value = '';
-            emptyBtn.addEventListener('keyup', function (e) {
-                if (e.keyCode == '13') {
-                    //创建p
-                }
-            });
+            rows.innerHTML = '';
         });
-
+        text.addEventListener('keyup', function () {
+            rows.innerHTML = '';
+            var rowArr = text.value.split('\n');
+            for (var i = 0, len = rowArr.length; i < len; i ++) {
+                var p = document.createElement('p');
+                rows.appendChild(p);
+                p.innerHTML = i + 1;
+            }
+            rows.scrollTop = text.scrollTop;
+        });
         performBtn.addEventListener('click', function () {
             var arr = text.value.split('\n'),
                 timer = null,
                 len = arr.length,
-                resultArr = [];
+                resultArr = [],
+                cmdArr = ['GO', 'go', 'TRA TOP', 'TRA RIG', 'TRA BOT', 'TRA LEF', 'tra top', 'tra rig', 'tra bot', 'tra lef', 'MOV TOP', 'MOV RIG', 'MOV BOT', 'MOV LEF', 'mov top', 'mov rig', 'mov bot', 'mov lef', 'TUN RIG', 'TUN BAC', 'TUN LEF', 'tun rig', 'tun bac', 'tun lef'];
 
             for (var i = 0; i < len; i ++) {
                 if (/\s\d+$/.test(arr[i])) {
-                    var cmd = arr[i].replace(/\s\d+$/, '');
+                    var cmd = arr[i].replace(/\s\d+$/, ''),
+                        hasCmd = false;
+                    for (var k = 0; k < cmdArr.length; k++) {
+                        if (cmd == cmdArr[k]) {
+                            hasCmd = true;
+                        }
+                    }
+                    if (!hasCmd) {
+                        resultArr.push([arr[i], i]);
+                        continue;
+                    }
                     var temp = parseInt(arr[i].match(/\s\d+$/)[0]);
                     for (var j = 0; j < temp; j ++) {
-                        resultArr.push(cmd);
+                        resultArr.push([cmd, i]);
                     }
                 } else {
-                    resultArr.push(arr[i]);
+                    resultArr.push([arr[i], i]);
                 }
             }
             i = 0;
@@ -168,10 +188,11 @@ var block = document.querySelector('#block'),
             clearInterval(timer);
             timer = setInterval(function () {
 
-                if (block.cpu(resultArr[i ++]) === 'no') {
-                    console.log('错误行数' + i);
+                if (block.cpu(resultArr[i][0]) === 'no') {
+                    rows.querySelectorAll('p')[resultArr[i][1]].style.backgroundColor = 'red';
                 }
-                if (i == len) {
+                i ++;
+                if (i >= len) {
                     clearInterval(timer);
                 }
             }, 500);
