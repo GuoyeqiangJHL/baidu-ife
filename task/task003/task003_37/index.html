@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UI组件之浮出层</title>
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .show {
+            display: block;
+        }
+        .hide {
+            display: none;
+        }
+        .xmask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, .3);
+            z-index: 99;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- <div class="xmask">
+        <div class="xwrap">
+            <div class="xwrap-nav"></div>
+            <div class="xwrap-main">
+                <p></p>
+                <button type="button" name="button">确定</button>
+            </div>
+        </div>
+    </div> -->
+
+    <button type="button" id="testbtn">创建浮出层</button>
+
+    <script src="js/XMask.js" charset="utf-8"></script>
+</body>
+</html>
