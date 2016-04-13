@@ -23,6 +23,8 @@ document.querySelector('#testbtn').addEventListener('click', function () {
         init: function () {
             this.mask = this.mask || _createMask();
             this.mask.className = 'xmask show';
+
+            
         }
     };
     window.xmask = function (options) {
