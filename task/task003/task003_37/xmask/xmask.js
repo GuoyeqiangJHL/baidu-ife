@@ -17,6 +17,7 @@
         mask.xwrapClose = _createChild('button', 'xwrap-close', mask.xwrapNav);
         mask.xwrapClose.addEventListener('click', function () {
             mask.className = 'xmask hide';
+            mask.xwrap.removeAttribute('style');
         });
         mask.xwrapTitle = _createChild('h3', 'xwrap-title', mask.xwrapNav);
 
@@ -26,6 +27,7 @@
         mask.xwrapBtn = _createChild('button', 'xwrap-btn', mask.xwrapFooter);
         mask.xwrapBtn.addEventListener('click', function () {
             mask.className = 'xmask hide';
+            mask.xwrap.removeAttribute('style');
         });
 
         return mask;
