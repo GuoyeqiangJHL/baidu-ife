@@ -13,4 +13,5 @@
 + [x] [task002_28](http://xxthink.com/baidu-ife/task/task002/task002_28/index.html)
 + [x] [task002_33](http://xxthink.com/baidu-ife/task/task002/task002_33/index.html)
 + [x] [task002_34](http://xxthink.com/baidu-ife/task/task002/task002_34/index.html)
-+ [ ] [task002_35](http://xxthink.com/baidu-ife/task/task002/task002_35/index.html)
++ [x] [task002_35](http://xxthink.com/baidu-ife/task/task002/task002_35/index.html)
++ [x] [task003_37](http://xxthink.com/baidu-ife/task/task002/task003_37/index.html)
