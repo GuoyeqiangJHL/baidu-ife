@@ -51,7 +51,7 @@
 .xpuzzle-3 .xphoto:nth-child(1) {
     position: absolute;
     left: 0;
-    width: 66.66666%;
+    width: 66.66667%;
     height: 100%;
 }
 .xpuzzle-3 .xphoto:nth-child(2) {
@@ -123,22 +123,17 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 33.33333%;
+    width: 33.33334%;
     height: 50%;
 }
 .xpuzzle-5 .xphoto:nth-child(5) {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 33.33333%;
+    width: 33.33334%;
     height: 50%;
 }
 
-.xpuzzle-6 .xphoto:nth-child(n) {
-    position: absolute;
-    width: 33.33333%;
-    height: 33.33333%;
-}
 .xpuzzle-6 .xphoto:nth-child(1) {
     position: absolute;
     top: 0;
@@ -147,22 +142,37 @@
     height: 66.66666%;
 }
 .xpuzzle-6 .xphoto:nth-child(2) {
+    position: absolute;
     bottom: 0;
     left: 0;
+    width: 33.33333%;
+    height: 33.33333%;
 }
 .xpuzzle-6 .xphoto:nth-child(3) {
+    position: absolute;
     bottom: 0;
     left: 33.33333%;
+    width: 33.33333%;
+    height: 33.33333%;
 }
 .xpuzzle-6 .xphoto:nth-child(4) {
+    position: absolute;
     top: 0;
     right: 0;
+    width: 33.33334%;
+    height: 33.33333%;
 }
 .xpuzzle-6 .xphoto:nth-child(5) {
+    position: absolute;
     top: 33.33333%;
     right: 0;
+    width: 33.33334%;
+    height: 33.33333%;
 }
 .xpuzzle-6 .xphoto:nth-child(6) {
+    position: absolute;
     bottom: 0;
     right: 0;
+    width: 33.33334%;
+    height: 33.33333%;
 }
