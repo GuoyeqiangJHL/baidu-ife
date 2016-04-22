@@ -92,7 +92,6 @@
             var img = new Image();
             img.src = ele.src;
             mask.appendChild(img);
-            img.className = 'xmask-img';
             mask.className = 'xmask';
             document.body.appendChild(mask);
             img.addEventListener('click', function (e) {
@@ -163,7 +162,6 @@
             var scrollTop = document.body.scrollTop;
             
             _this.ajaxObj.onsuccess = function (responseText) {
-                console.log(responseText);
                 var json = JSON.parse(responseText);
                 if (json.imgsrc) {
                     _createLi(_this, json.imgsrc, 0, json.imgsrc.length);
